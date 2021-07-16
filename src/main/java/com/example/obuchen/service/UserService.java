@@ -7,6 +7,6 @@ import java.util.Optional;
 public interface UserService {
     Optional<User> getById(Long id);
     void delete(Long id);
-    void addUser(String name);
+    User addUser(String name);
 
 }

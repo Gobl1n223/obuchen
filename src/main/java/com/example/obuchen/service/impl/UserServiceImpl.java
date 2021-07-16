@@ -23,11 +23,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(Long id) {
-        userRepo.delete(userRepo.findById(id));
+        userRepo.deleteById(id);
     }
-
+    //TODO
     @Override
-    public void addUser(String name) {
+    public User addUser(String name) {
 
+        userRepo.saveAndFlush()
     }
 }
