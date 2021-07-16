@@ -3,7 +3,7 @@ package com.example.obuchen.entities;
 import lombok.Data;
 
 
-
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -18,8 +18,9 @@ import java.util.Set;
 @Table(name= "user")
 public class User implements UserDetails {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
+  @GeneratedValue(generator = "increment")
+  @GenericGenerator(name = "increment", strategy = "increment")
+  private long id;
 
   private String username;
   private String password;
