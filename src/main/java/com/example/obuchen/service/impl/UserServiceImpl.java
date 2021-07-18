@@ -27,8 +27,8 @@ public class UserServiceImpl implements UserService {
     }
     //TODO
     @Override
-    public User addUser(String name) {
-
-        userRepo.saveAndFlush()
+    public User addUser(User user) {
+        User savedUser = userRepo.saveAndFlush(user);
+        return savedUser;
     }
 }
