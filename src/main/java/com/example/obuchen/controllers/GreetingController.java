@@ -22,7 +22,8 @@ public class GreetingController {
     UserServiceImpl userService;
 
     @GetMapping("/greeting")
-    public String greeting() {
+    public String greeting(Model model) {
+        model.addAttribute("name", "Artem" );
         return "greeting";
     }
 
