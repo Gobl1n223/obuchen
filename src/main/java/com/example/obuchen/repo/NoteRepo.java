@@ -1,12 +1,17 @@
 package com.example.obuchen.repo;
 
 import com.example.obuchen.entities.Note;
-import com.sun.tools.javac.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
+
 
 public interface NoteRepo extends JpaRepository<Note, Long> {
-    /**проверить Лист
-     */
 
-    List<Note> findByUserId(Long userId);
+        @Query("select n from Note n where n.title = :title")
+        Note findByTitle(@Param("title") String title);
+
+
 }

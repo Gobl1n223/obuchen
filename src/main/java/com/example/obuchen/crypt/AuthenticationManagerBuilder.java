@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.security.AuthProvider;
 
-public class AuthenticationManagerBuilder {
+/*public class AuthenticationManagerBuilder {
     @Autowired
     private AuthProvider authProvider;
 
@@ -13,4 +13,5 @@ public class AuthenticationManagerBuilder {
     {
         auth.authenticationProvider(authProvider);
     }
-}
+}*/
+

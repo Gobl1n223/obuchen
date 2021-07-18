@@ -7,7 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.security.AuthProvider;
 
-public class BCryptPasswordEncoder {
+/*public class BCryptPasswordEncoder {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -18,4 +18,4 @@ public class BCryptPasswordEncoder {
         return passwordEncoder;
     }
 
-}
+}*/
