@@ -22,6 +22,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getByName2(String name) {
+        return userRepo.findByName2(name);
+    }
+
+    @Override
     public void delete(Long id) {
         userRepo.deleteById(id);
     }
