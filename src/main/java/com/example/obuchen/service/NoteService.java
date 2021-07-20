@@ -12,4 +12,5 @@ public interface NoteService {
     Note getByTitle(String title);
     void delete(Long id);
     Note addNote (Note note);
+    List<Note> getForTape();
 }

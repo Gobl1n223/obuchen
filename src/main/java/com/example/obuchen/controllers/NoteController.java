@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -18,10 +19,11 @@ public class NoteController {
     @GetMapping("/notes")
     public String notes(Model model)
     {
-        List<Note> notes = noteRepo.findAll();
+        List<Note> notes = noteRepo.findForTape();
+        Collections.reverse(notes);
         model.addAttribute("notes", notes);
 
-        return "notes";
+        return "account/success";
     }
 
     @PostMapping("/addnote")
@@ -35,4 +37,7 @@ public class NoteController {
 
         return "redirect:/notes";
     }
+
+
+
 }

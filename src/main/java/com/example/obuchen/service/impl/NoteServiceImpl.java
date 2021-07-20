@@ -39,4 +39,9 @@ public class NoteServiceImpl implements NoteService {
     public Note addNote(Note note) {
         return noteRepo.saveAndFlush(note);
     }
+
+    @Override
+    public List<Note> getForTape() {
+        return noteRepo.findForTape();
+    }
 }
