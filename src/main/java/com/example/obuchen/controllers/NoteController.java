@@ -23,21 +23,8 @@ public class NoteController {
         Collections.reverse(notes);
         model.addAttribute("notes", notes);
 
-        return "account/success";
+        return "index";
     }
-
-    @PostMapping("/addnote")
-    public String addNote(String title, String note)
-    {
-        Note newNote = new Note();
-        newNote.setTitle(title);
-        newNote.setNote(note);
-
-        noteRepo.save(newNote);
-
-        return "redirect:/notes";
-    }
-
 
 
 }
