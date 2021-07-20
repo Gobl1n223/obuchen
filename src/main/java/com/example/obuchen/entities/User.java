@@ -12,6 +12,9 @@ import java.util.Collection;
 import java.util.Set;
 
 
+/**
+ * Сделать так, чтобы у id не было сеттера
+ * */
 @Entity
 @Data
 @Table(name= "user")
@@ -21,6 +24,7 @@ public class User  {
   @GenericGenerator(name = "increment", strategy = "increment")
   private long id;
 
+  private String email;
   private String username;
   private String password;
   private String name;

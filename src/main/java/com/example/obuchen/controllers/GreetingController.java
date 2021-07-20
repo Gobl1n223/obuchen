@@ -23,7 +23,7 @@ public class GreetingController {
         return "greeting";
     }
 
-    @GetMapping("/searchUserById/{userId}")
+    @GetMapping("/user/search_by_id/{userId}")
     public String test(@PathVariable("userId") Long id, Model model) {
 
         Optional<User> optional = userService.getById(id);
@@ -32,7 +32,7 @@ public class GreetingController {
 
     }
 
-    @GetMapping("/searchUserByName/{userName}")
+    @GetMapping("/user/search_by_name/{userName}")
     public String test2(@PathVariable("userName") String name, Model model) {
 
         User user = userService.getByName2(name);
@@ -43,9 +43,31 @@ public class GreetingController {
 
 
 
-    @DeleteMapping("/delete/{id}")
+    @PostMapping("/user/delete/{id}")
     public void delete(@PathVariable("id") Long id) {
         userService.delete(id);
     }
 
+
+    @GetMapping("/user/new")
+    public String newUser(Model model) {
+        model.addAttribute("user", new User());
+        return "account/new";
+    }
+
+    @PostMapping("/user/new")
+    public String addUser(@RequestParam("name") String name,
+                        @RequestParam("email") String email,
+                        Model model) {
+        User user = new User();
+
+        user.setName(name);
+        user.setEmail(email);
+
+
+        userService.addUser(user);
+        model.addAttribute("user", user);
+
+        return "account/success";
+    }
 }
