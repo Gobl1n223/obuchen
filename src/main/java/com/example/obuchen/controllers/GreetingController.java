@@ -43,10 +43,7 @@ public class GreetingController {
 
 
 
-    @PostMapping("/user/delete/{id}")
-    public void delete(@PathVariable("id") Long id) {
-        userService.delete(id);
-    }
+
 
 
     @GetMapping("/user/new")
@@ -56,13 +53,8 @@ public class GreetingController {
     }
 
     @PostMapping("/user/new")
-    public String addUser(@RequestParam("name") String name,
-                        @RequestParam("email") String email,
+    public String addUser(@ModelAttribute User user,
                         Model model) {
-        User user = new User();
-
-        user.setName(name);
-        user.setEmail(email);
 
 
         userService.addUser(user);
@@ -70,4 +62,20 @@ public class GreetingController {
 
         return "account/success";
     }
+
+
+
+
+    @GetMapping("/user/delete")
+    public String delete(Model model) {
+        model.addAttribute("user", new User());
+        return "/account/delete";
+    }
+
+    @PostMapping("/user/delete")
+    public String delete(@ModelAttribute User user, Model model) {
+        userService.delete(user.getId());
+        return "account/success";
+    }
+
 }
