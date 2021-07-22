@@ -16,7 +16,7 @@ public class NoteController {
     @Autowired
     private NoteRepo noteRepo;
 
-    @GetMapping("/notes")
+    @GetMapping("/")
     public String notes(Model model)
     {
         List<Note> notes = noteRepo.findForTape();
