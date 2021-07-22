@@ -21,6 +21,7 @@ public class NoteController {
     {
         List<Note> notes = noteRepo.findForTape();
         Collections.reverse(notes);
+        System.out.println(notes);
         model.addAttribute("notes", notes);
 
         return "index";

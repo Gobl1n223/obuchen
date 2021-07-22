@@ -14,7 +14,8 @@ public interface NoteRepo extends JpaRepository<Note, Long> {
         Note findByTitle(@Param("title") String title);
 
         //TODO
-        @Query(value = "SELECT * FROM (SELECT * FROM Note ORDER BY id DESC LIMIT 10)Var1 ORDER BY id ASC;",nativeQuery = true)
+        @Query(value = "SELECT * FROM (SELECT * FROM Note ORDER BY id DESC LIMIT 3)Var1 ORDER BY id ASC;",nativeQuery = true)
         List<Note> findForTape();
+
 
 }

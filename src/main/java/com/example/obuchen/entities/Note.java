@@ -19,4 +19,5 @@ public class Note {
         private String title;
         private String note;
         private Long userId;
+        private String userName;
 }
