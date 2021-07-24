@@ -17,14 +17,12 @@ public class NoteController {
     @Autowired
     private NoteServiceImpl noteService;
 
+
     @GetMapping(value = "note")
     public String notes(@RequestParam(value = "title", required = false)String title, Model model)
     {
-        List<Note> notes = noteService.getForTape();
-        Collections.reverse(notes);
-        System.out.println(notes);
+        List<Note> notes = noteService.getLast3Notes();
         model.addAttribute("notes", notes);
-        model.addAttribute("noteSearch", noteService.getAllByTitle(title));
        return "index";
     }
     @GetMapping(value = "noteSearch")

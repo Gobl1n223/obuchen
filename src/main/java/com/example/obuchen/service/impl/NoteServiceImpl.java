@@ -42,8 +42,8 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public List<Note> getForTape() {
-        return noteRepo.findForTape();
+    public List<Note> getLast3Notes() {
+        return noteRepo.findLast3Notes();
     }
 
     @Override
