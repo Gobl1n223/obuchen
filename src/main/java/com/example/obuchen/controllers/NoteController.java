@@ -19,7 +19,7 @@ public class NoteController {
 
 
     @GetMapping(value = "note")
-    public String notes(@RequestParam(value = "title", required = false)String title, Model model)
+    public String notes(Model model)
     {
         List<Note> notes = noteService.getLast3Notes();
         model.addAttribute("notes", notes);
