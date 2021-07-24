@@ -17,7 +17,7 @@ public class NoteController {
     @Autowired
     private NoteServiceImpl noteService;
 
-    @RequestMapping(value = "note", method = RequestMethod.GET)
+    @GetMapping(value = "note")
     public String notes(@RequestParam(value = "title", required = false)String title, Model model)
     {
         List<Note> notes = noteService.getForTape();
@@ -27,7 +27,7 @@ public class NoteController {
         model.addAttribute("noteSearch", noteService.getAllByTitle(title));
        return "index";
     }
-    @RequestMapping(value = "noteSearch", method = RequestMethod.GET)
+    @GetMapping(value = "noteSearch")
     public String notesS(@RequestParam(value = "title", required = false)String title, Model model)
     {
         List<Note> titles = noteService.getAllByTitle(title);
