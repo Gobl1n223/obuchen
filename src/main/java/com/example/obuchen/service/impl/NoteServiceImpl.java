@@ -46,5 +46,10 @@ public class NoteServiceImpl implements NoteService {
         return noteRepo.findForTape();
     }
 
+    @Override
+    public List<Note> getAllByTitle(String title) {
+        return noteRepo.findAllByTitle(title);
+    }
+
 
 }

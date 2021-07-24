@@ -2,6 +2,7 @@ package com.example.obuchen.controllers;
 
 import com.example.obuchen.entities.Note;
 import com.example.obuchen.repo.NoteRepo;
+import com.example.obuchen.service.impl.NoteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,27 +13,24 @@ import java.util.List;
 
 @Controller
 public class NoteController {
+
     @Autowired
-    private NoteRepo noteRepo;
+    private NoteServiceImpl noteService;
 
     @RequestMapping(value = "note", method = RequestMethod.GET)
     public String notes(@RequestParam(value = "title", required = false)String title, Model model)
     {
-        List<Note> notes = noteRepo.findForTape();
+        List<Note> notes = noteService.getForTape();
         Collections.reverse(notes);
         System.out.println(notes);
         model.addAttribute("notes", notes);
-        model.addAttribute("noteSearch", noteRepo.findAllByTitle(title));
+        model.addAttribute("noteSearch", noteService.getAllByTitle(title));
        return "index";
     }
     @RequestMapping(value = "noteSearch", method = RequestMethod.GET)
     public String notesS(@RequestParam(value = "title", required = false)String title, Model model)
     {
-        List<Note> notes = noteRepo.findForTape();
-        Collections.reverse(notes);
-        System.out.println(notes);
-        model.addAttribute("notes", notes);
-        List<Note> titles = noteRepo.findAllByTitle(title);
+        List<Note> titles = noteService.getAllByTitle(title);
         model.addAttribute("title", titles);
         return "noteSearch";
     }
