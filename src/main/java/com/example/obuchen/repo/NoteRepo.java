@@ -18,4 +18,6 @@ public interface NoteRepo extends JpaRepository<Note, Long> {
         List<Note> findForTape();
 
 
+        List<Note> findAllByTitle(String title);
+
 }
