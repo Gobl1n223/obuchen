@@ -40,5 +40,16 @@ public class NoteController {
        model.addAttribute("foundTitle", foundNote);
        return "noteSearch";
    }*/
+   @PostMapping("/addnote")
+   public String addNote(String title, String note)
+   {
+       Note newNote = new Note();
+       newNote.setTitle(title);
+       newNote.setNote(note);
+
+       noteService.addNote(newNote);
+
+       return "redirect:/notes";
+   }
 
 }

@@ -9,5 +9,5 @@ public interface UserService {
     User getByName2(String name);
     void delete(Long id);
     User addUser(User user);
-
+    User loadUserByUsername(String username);
 }
