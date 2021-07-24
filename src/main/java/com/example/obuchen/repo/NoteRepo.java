@@ -2,6 +2,7 @@ package com.example.obuchen.repo;
 
 import com.example.obuchen.entities.Note;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -25,6 +26,8 @@ public interface NoteRepo extends JpaRepository<Note, Long> {
 
         // ORDER BY id ASC LIMIT 3 Вот эта херня выводит в обратном порядке и можно с последних записей идти для страниц
 
-        List<Note> findAllByTitle(String title);
+        @Query("SELECT u from Note u WHERE u.title LIKE CONCAT ('%',:title,'%')")
+        List<Note> findAllByTitle(@Param("title") String title1);
+
 
 }
