@@ -15,7 +15,7 @@ public class NoteController {
     @Autowired
     private NoteRepo noteRepo;
 
-    @RequestMapping(value = "note", method = RequestMethod.GET)
+    @GetMapping(value = "note")
     public String notes(@RequestParam(value = "title", required = false)String title, Model model)
     {
         List<Note> notes = noteRepo.findForTape();
@@ -25,7 +25,7 @@ public class NoteController {
         model.addAttribute("noteSearch", noteRepo.findAllByTitle(title));
        return "index";
     }
-    @RequestMapping(value = "noteSearch", method = RequestMethod.GET)
+    @GetMapping(value = "noteSearch")
     public String notesS(@RequestParam(value = "title", required = false)String title, Model model)
     {
         List<Note> notes = noteRepo.findForTape();
