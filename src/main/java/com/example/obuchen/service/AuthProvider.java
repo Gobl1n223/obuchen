@@ -1,7 +1,7 @@
-package com.example.obuchen.config;
+package com.example.obuchen.service;
 
 import com.example.obuchen.entities.User;
-import com.example.obuchen.service.UserService;
+import com.example.obuchen.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -18,7 +18,7 @@ import java.util.Collection;
 public class AuthProvider implements AuthenticationProvider
 {
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -28,7 +28,7 @@ public class AuthProvider implements AuthenticationProvider
         String username = authentication.getName();
         String password = (String) authentication.getCredentials();
 
-        User user = (User) userService.loadUserByUsername(username);
+        User user = (User) userServiceImpl.loadUserByUsername(username);
 
         if(user != null && (user.getUsername().equals(username) || user.getName().equals(username)))
         {

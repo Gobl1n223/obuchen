@@ -1,5 +1,6 @@
 package com.example.obuchen.config;
 
+import com.example.obuchen.service.AuthProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,8 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.security.AuthProvider;
 
 @Configuration
 @EnableWebSecurity
@@ -39,11 +38,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     {
         http
                 .authorizeRequests()
-                .antMatchers("/resources/**", "/note", "/login**", "/registration","/templates/index").permitAll()
+                .antMatchers("/resources/**", "/", "/login**", "/registration").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login")
-                .defaultSuccessUrl("/note").failureUrl("/login?error").permitAll()
-                .and().logout().logoutSuccessUrl("/note").permitAll();
+                .defaultSuccessUrl("/notes").failureUrl("/login?error").permitAll()
+                .and().logout().logoutSuccessUrl("/").permitAll();
     }
 }
 

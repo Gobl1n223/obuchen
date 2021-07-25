@@ -42,13 +42,30 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
     {
         User userFindByUsername = userRepo.findByUsername(username);
-        //Остальные поиски
+        User userFindByName = userRepo.findByName(username);
+        User userFindByGoogleUsername = userRepo.findByGoogleUsername(username);
+        User userFindByGoogleName = userRepo.findByGoogleName(username);
 
         if(userFindByUsername != null)
         {
-            return userFindByUsername;
+            return  userFindByUsername;
         }
-        //Остальные проверки
+
+        if(userFindByName != null)
+        {
+            return  userFindByName;
+        }
+
+        if(userFindByGoogleUsername != null)
+        {
+            return  userFindByGoogleUsername;
+        }
+
+        if(userFindByGoogleName != null)
+        {
+            return  userFindByGoogleName;
+        }
+
         return null;
     }
 }
