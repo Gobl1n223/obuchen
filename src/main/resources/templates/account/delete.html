@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form th:method="POST" th:action="@{/user/delete}" th:object="${user}">
+<form th:method="POST" th:action="@{/api/user/delete}" th:object="${user}">
 
   <label for="id">Enter name: </label>
   <input type="text" th:field="*{id}" id="id"/>

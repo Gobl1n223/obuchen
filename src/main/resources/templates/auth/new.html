@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+<form th:method="POST" th:action="@{sing_up}" th:object="${user}">
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+
+    <br/>
+    <br/>
+
+    <label for="email">enter email</label>
+    <input type="text" th:field="*{email}" id="email">
+
+    <label for="password">enter password</label>
+    <input type="text" th:field="*{password}" id="password">
+
+    <br/>
+    <br/>
+
+    <input type="submit" value="create"/>
+
+</form>
+
+<script>
+    function login() {
+        var username = $('#username').val();
+        var password = $('#password').val();
+
+        var encrypt = new JSEncrypt();
+
+        $.ajax({
+            type: "get",  / / Submit method
+        url: "/getPublicKey",// Access path
+            contentType: 'application/json;charset=utf-8',// Return JSON results
+            success: function (data) {
+            console.log(data)
+            encrypt.setPublicKey(data)
+            var encryptPwd = encrypt.encrypt(password)
+            console.log("encryptPwd:"+encryptPwd)
+            $.ajax({
+                type: "post",  / / Submit method
+            url: "/loginRequest",// Access path
+                contentType: 'application/json;charset=utf-8',// Return JSON results
+                data: JSON.stringify({"username":username,"password":encryptPwd}),
+                success: function (data) {
+                console.log(data)
+
+            }
+        });
+        }
+    });
+
+    }
+</script>
+
+</body>
+</html>

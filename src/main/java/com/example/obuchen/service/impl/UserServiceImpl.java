@@ -6,6 +6,7 @@ import com.example.obuchen.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,5 +35,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User addUser(User user) {
         return userRepo.saveAndFlush(user);
+    }
+
+
+    public List<User> getAll() {
+        return userRepo.findAll();
     }
 }

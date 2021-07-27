@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -32,11 +33,15 @@ public class GreetingController {
 
     }
 
-    @GetMapping("/user/search_by_name/{userName}")
-    public String test2(@PathVariable("userName") String name, Model model) {
 
-        User user = userService.getByName2(name);
-        model.addAttribute("name", user.getName());
+
+
+
+    @GetMapping("/user/search_by_name/{userName}")
+    public String test2(@PathVariable String userName, Model model) {
+
+        User user = userService.getByName2(userName);
+        model.addAttribute("userName", user.getName());
         return "user";
 
     }
@@ -46,36 +51,11 @@ public class GreetingController {
 
 
 
-    @GetMapping("/user/new")
-    public String newUser(Model model) {
-        model.addAttribute("user", new User());
-        return "account/new";
-    }
-
-    @PostMapping("/user/new")
-    public String addUser(@ModelAttribute User user,
-                        Model model) {
-
-
-        userService.addUser(user);
-        model.addAttribute("user", user);
-
-        return "account/success";
-    }
 
 
 
 
-    @GetMapping("/user/delete")
-    public String delete(Model model) {
-        model.addAttribute("user", new User());
-        return "/account/delete";
-    }
 
-    @PostMapping("/user/delete")
-    public String delete(@ModelAttribute User user, Model model) {
-        userService.delete(user.getId());
-        return "account/success";
-    }
+
 
 }

@@ -1,8 +1,10 @@
 package com.example.obuchen.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 
@@ -29,8 +31,11 @@ public class User  {
   private String password;
   private String name;
   private int active;
-  private String googleName;
-  private String googleUsername;
+  @Enumerated(value = EnumType.STRING)
+  private Role role;
+  @Enumerated(value = EnumType.STRING)
+  private Status status;
+
 
   @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
   @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
