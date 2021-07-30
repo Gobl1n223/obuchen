@@ -1,5 +1,7 @@
 package com.example.obuchen.service.impl;
 
+import com.example.obuchen.entities.Role;
+import com.example.obuchen.entities.Status;
 import com.example.obuchen.entities.User;
 import com.example.obuchen.repo.UserRepo;
 import com.example.obuchen.service.UserService;
@@ -31,9 +33,10 @@ public class UserServiceImpl implements UserService {
     public void delete(Long id) {
         userRepo.deleteById(id);
     }
-    //TODO
     @Override
     public User addUser(User user) {
+        user.setStatus(Status.ACTIVE);
+        user.setRole(Role.USER);
         return userRepo.saveAndFlush(user);
     }
 

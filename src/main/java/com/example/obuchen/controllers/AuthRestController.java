@@ -5,8 +5,10 @@ import com.example.obuchen.entities.User;
 import com.example.obuchen.repo.UserRepo;
 import com.example.obuchen.security.JwtTokenProvider;
 import com.example.obuchen.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -30,6 +32,7 @@ public class AuthRestController {
     private final UserService userService;
     private final JwtTokenProvider jwtTokenProvider;
 
+    @Autowired
     public AuthRestController(AuthenticationManager authenticationManager, UserService userService, JwtTokenProvider jwtTokenProvider) {
         this.authenticationManager = authenticationManager;
         this.userService = userService;
@@ -53,6 +56,7 @@ public class AuthRestController {
     }
 
     @PostMapping("/logout")
+    @PreAuthorize("hasAuthority('user:rights')")
     public void logout(HttpServletRequest request, HttpServletResponse response) {
         SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
         securityContextLogoutHandler.logout(request,response,null);
