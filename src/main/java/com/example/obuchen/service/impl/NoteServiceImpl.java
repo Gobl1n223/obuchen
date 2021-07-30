@@ -4,6 +4,8 @@ import com.example.obuchen.entities.Note;
 import com.example.obuchen.repo.NoteRepo;
 import com.example.obuchen.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,9 +17,9 @@ public class NoteServiceImpl implements NoteService {
     private NoteRepo noteRepo;
 
     @Override
-    public List<Note> getAll() {
+    public Page<Note> getAll(Pageable pageable) {
 
-        return noteRepo.findAll();
+        return noteRepo.findAll(pageable);
     }
 
     @Override

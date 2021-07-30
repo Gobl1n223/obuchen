@@ -1,6 +1,8 @@
 package com.example.obuchen.repo;
 
 import com.example.obuchen.entities.Note;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -22,4 +24,5 @@ public interface NoteRepo extends JpaRepository<Note, Long> {
         @Query("SELECT u from Note u WHERE u.title LIKE CONCAT ('%',:title,'%')")
         List<Note> findAllByTitle(@Param("title") String title1);
 
+        Page<Note> findAll(Pageable pageable);
 }
