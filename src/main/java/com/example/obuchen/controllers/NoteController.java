@@ -20,26 +20,17 @@ public class NoteController {
 
 
     @GetMapping
-    public String notes(Model model)
-    {
+    public String notes(Model model) {
         List<Note> notes = noteService.getLast3Notes();
         model.addAttribute("notes", notes);
        return "index";
     }
+
     @GetMapping(value = "noteSearch")
-    public String notesS(@RequestParam(value = "title", required = false)String title, Model model)
-    {
+    public String notesS(@RequestParam(value = "title", required = false)String title, Model model) {
         List<Note> titles = noteService.getAllByTitle(title);
         model.addAttribute("title", titles);
         return "noteSearch";
     }
-
-   /*@PostMapping("/note")
-    public String noteSearch(Note note, Model model, String title)
-   {
-       List<Note> foundNote = noteRepo.findAllByTitle(title);
-       model.addAttribute("foundTitle", foundNote);
-       return "noteSearch";
-   }*/
 
 }
