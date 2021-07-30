@@ -25,7 +25,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/auth")
 public class AuthRestController {
 
     private final AuthenticationManager authenticationManager;

@@ -1,10 +1,8 @@
 package com.example.obuchen.service;
 
 import com.example.obuchen.entities.Note;
-import com.example.obuchen.entities.User;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface NoteService {
     List<Note> getAll();
