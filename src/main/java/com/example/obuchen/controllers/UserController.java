@@ -11,19 +11,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Controller
 public class UserController {
 
     @Autowired
     UserServiceImpl userService;
-
-    @GetMapping("/users")
-    @ResponseBody
-    @PreAuthorize("hasAuthority('admin:rights')")
-    public List<User> getUsers() {
-        return userService.getAll();
-    }
 
     @GetMapping("/sing_up")
     public String newUser(Model model) {
@@ -32,7 +27,6 @@ public class UserController {
     }
 
     @PostMapping("/sing_up")
-    @PreAuthorize("hasAuthority('user:rights')")
     public String addUser(@ModelAttribute User user,
                           Model model) {
 
@@ -42,20 +36,6 @@ public class UserController {
         userService.addUser(user);
         model.addAttribute("user", user);
 
-        return "account/success";
-    }
-
-    @GetMapping("/user/delete")
-    @PreAuthorize("hasAuthority('admin:rights')")
-    public String delete(Model model) {
-        model.addAttribute("user", new User());
-        return "/account/delete";
-    }
-
-    @PostMapping("/user/delete")
-    @PreAuthorize("hasAuthority('developers:write')")
-    public String delete(@ModelAttribute User user, Model model) {
-        userService.delete(user.getId());
         return "account/success";
     }
 
@@ -71,6 +51,7 @@ public class UserController {
     }
 
     @GetMapping("account/my")
+    @PreAuthorize("hasAuthority('user:rights')")
     public String myAccount() {
 
         System.out.println("account");
