@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @PostMapping("/sing_up")
-    @PreAuthorize("hasAuthority('user:rights')")
+  //  @PreAuthorize("hasAuthority('user:rights')")
     public String addUser(@ModelAttribute User user,
                           Model model) {
 
