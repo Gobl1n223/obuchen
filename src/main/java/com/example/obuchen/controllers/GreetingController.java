@@ -45,17 +45,4 @@ public class GreetingController {
         return "user";
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

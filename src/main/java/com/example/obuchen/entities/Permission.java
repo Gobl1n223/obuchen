@@ -1,8 +1,8 @@
 package com.example.obuchen.entities;
 
 public enum Permission {
-    DEVELOPERS_READ("developers:read"),
-    DEVELOPERS_WRITE("developers:write");
+    USERS_RIGHTS("users:rights"),
+    ADMIN_RIGHTS("admins:rights");
     private final String permission;
 
     Permission(String permission) {

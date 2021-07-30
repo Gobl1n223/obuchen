@@ -20,14 +20,12 @@ public class NoteController {
 
 
     @GetMapping
-    @PreAuthorize("hasAuthority('developers:read')")
     public String notes(Model model)
     {
         List<Note> notes = noteService.getLast3Notes();
         model.addAttribute("notes", notes);
        return "index";
     }
-    @PreAuthorize("hasAuthority('developers:read')")
     @GetMapping(value = "noteSearch")
     public String notesS(@RequestParam(value = "title", required = false)String title, Model model)
     {
