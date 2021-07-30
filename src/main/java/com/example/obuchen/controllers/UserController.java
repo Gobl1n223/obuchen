@@ -13,16 +13,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-public class DevController {
-
-
+public class UserController {
 
     @Autowired
     UserServiceImpl userService;
 
-    @GetMapping("/api/users")
+    @GetMapping("/users")
     @ResponseBody
-    @PreAuthorize("hasAuthority('developers:read')")
+    @PreAuthorize("hasAuthority('admin:rights')")
     public List<User> getUsers() {
         return userService.getAll();
     }
@@ -34,8 +32,12 @@ public class DevController {
     }
 
     @PostMapping("/sing_up")
+    @PreAuthorize("hasAuthority('user:rights')")
     public String addUser(@ModelAttribute User user,
                           Model model) {
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(user.getPassword()));
 
         userService.addUser(user);
         model.addAttribute("user", user);
@@ -43,14 +45,14 @@ public class DevController {
         return "account/success";
     }
 
-    @GetMapping("/api/user/delete")
-    @PreAuthorize("hasAuthority('developers:write')")
+    @GetMapping("/user/delete")
+    @PreAuthorize("hasAuthority('admin:rights')")
     public String delete(Model model) {
         model.addAttribute("user", new User());
         return "/account/delete";
     }
 
-    @PostMapping("/api/user/delete")
+    @PostMapping("/user/delete")
     @PreAuthorize("hasAuthority('developers:write')")
     public String delete(@ModelAttribute User user, Model model) {
         userService.delete(user.getId());
