@@ -4,6 +4,7 @@ import com.example.obuchen.dto.AuthRequestDTO;
 import com.example.obuchen.entities.User;
 import com.example.obuchen.repo.UserRepo;
 import com.example.obuchen.security.JwtTokenProvider;
+import com.example.obuchen.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,12 +27,12 @@ import java.util.Map;
 public class AuthRestController {
 
     private final AuthenticationManager authenticationManager;
-    private UserRepo userRepo;
-    private JwtTokenProvider jwtTokenProvider;
+    private final UserService userService;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    public AuthRestController(AuthenticationManager authenticationManager, UserRepo userRepo, JwtTokenProvider jwtTokenProvider) {
+    public AuthRestController(AuthenticationManager authenticationManager, UserService userService, JwtTokenProvider jwtTokenProvider) {
         this.authenticationManager = authenticationManager;
-        this.userRepo = userRepo;
+        this.userService = userService;
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
@@ -39,7 +40,7 @@ public class AuthRestController {
     public ResponseEntity<?> authenticate(@RequestBody AuthRequestDTO request) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-            User user = userRepo.findByEmail(request.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
+            User user = userService.getByEmail(request.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
             String token = jwtTokenProvider.createToken(request.getEmail(), user.getRole().name());
             Map<Object, Object> response = new HashMap<>();
             response.put("email", request.getEmail());

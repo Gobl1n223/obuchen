@@ -11,5 +11,6 @@ public interface UserService {
     void delete(Long id);
     User addUser(User user);
     List<User> getAll();
+    Optional<User> getByEmail(String email);
 
 }
