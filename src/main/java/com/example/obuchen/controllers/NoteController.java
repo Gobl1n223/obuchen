@@ -1,18 +1,19 @@
 package com.example.obuchen.controllers;
 
 import com.example.obuchen.entities.Note;
-import com.example.obuchen.repo.NoteRepo;
 import com.example.obuchen.service.impl.NoteServiceImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,7 +32,7 @@ public class NoteController {
     }
 
     @GetMapping(value = "noteSearch")
-    public String notesS(@RequestParam(value = "title", required = false)String title, Model model) {
+    public String noteSearch(@RequestParam(value = "title", required = false)String title, Model model) {
         List<Note> titles = noteService.getAllByTitle(title);
         model.addAttribute("title", titles);
         return "noteSearch";
@@ -45,12 +46,25 @@ public class NoteController {
     }
 
 
-    @GetMapping("note/all/{userId}")
+    //постраничный вывод без html
+    @GetMapping("note/all/{pageNum}")
     @ResponseBody
-    public List<Note> getAllNotes(@PathVariable("userId") Integer id) {
-        Pageable firstPageWithTwoElements = PageRequest.of(id, 10);
+    public List<Note> getAllNotes(@PathVariable("pageNum") Integer pageNum) {
+        Pageable firstPageWithTwoElements = PageRequest.of(pageNum, 10);
         Page<Note> page = noteService.getAll(firstPageWithTwoElements);
         return page.get().collect(Collectors.toList());
+    }
+
+    //постраничный вывод с html
+    //частично работает, ошибка при вызове, хз как фиксануть
+    //TODO
+    @GetMapping("note/all2/{pageNum}")
+    public String getAllNotes2(@PathVariable("pageNum") Integer pageNum,  Model model) {
+        Pageable firstPageWithTwoElements = PageRequest.of(pageNum, 10);
+        Page<Note> page = noteService.getAll(firstPageWithTwoElements);
+        model.addAttribute("title", page.get().collect(Collectors.toList()));
+        //return page.get().collect(Collectors.toList());
+        return "allNotes";
     }
 
 }

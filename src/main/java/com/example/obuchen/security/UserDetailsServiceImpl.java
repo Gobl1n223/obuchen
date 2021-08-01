@@ -2,6 +2,7 @@ package com.example.obuchen.security;
 
 import com.example.obuchen.entities.User;
 import com.example.obuchen.repo.UserRepo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

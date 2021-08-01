@@ -3,6 +3,7 @@ package com.example.obuchen.service.impl;
 import com.example.obuchen.entities.Note;
 import com.example.obuchen.repo.NoteRepo;
 import com.example.obuchen.service.NoteService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -2,6 +2,7 @@ package com.example.obuchen.security;
 
 import com.example.obuchen.entities.Status;
 import com.example.obuchen.entities.User;
+
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
