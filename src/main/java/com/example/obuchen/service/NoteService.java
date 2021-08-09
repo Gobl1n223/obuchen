@@ -15,4 +15,5 @@ public interface NoteService {
     Note addNote (Note note);
     List<Note> getAllByTitle(String title);
     List<Note> getLast3Notes();
+    Page<Note> getAllByUserId(Pageable pageable, Long id);
 }

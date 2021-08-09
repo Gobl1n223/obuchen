@@ -1,18 +1,22 @@
 package com.example.obuchen.controllers;
 
 import com.example.obuchen.entities.Note;
+import com.example.obuchen.entities.User;
 import com.example.obuchen.service.impl.NoteServiceImpl;
 
+import com.example.obuchen.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,6 +26,9 @@ public class NoteController {
 
     @Autowired
     private NoteServiceImpl noteService;
+
+    @Autowired
+    private UserServiceImpl userService;
 
 
     @GetMapping
@@ -55,16 +62,36 @@ public class NoteController {
         return page.get().collect(Collectors.toList());
     }
 
-    //постраничный вывод с html
-    //частично работает, ошибка при вызове, хз как фиксануть
-    //TODO
-    @GetMapping("note/all2/{pageNum}")
-    public String getAllNotes2(@PathVariable("pageNum") Integer pageNum,  Model model) {
+
+    @GetMapping("note/user/{id}/{pageNum}")
+    @ResponseBody
+    public List<Note> getAllByUserId(@PathVariable("pageNum") Integer pageNum,@PathVariable("id") Long id) {
         Pageable firstPageWithTwoElements = PageRequest.of(pageNum, 10);
-        Page<Note> page = noteService.getAll(firstPageWithTwoElements);
-        model.addAttribute("title", page.get().collect(Collectors.toList()));
-        //return page.get().collect(Collectors.toList());
-        return "allNotes";
+        Page<Note> page = noteService.getAllByUserId(firstPageWithTwoElements, id);
+        return page.get().collect(Collectors.toList());
+    }
+
+
+    @PostMapping("note/new")
+    @ResponseBody
+    @PreAuthorize("hasAuthority('user:rights')")
+    public ResponseEntity createNewNote(@RequestBody String noteText) {
+
+        long userId = 0L;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            userId = userService.getByEmail(
+                    ((UserDetails)principal)
+                            .getUsername()).get().getId();
+        }
+
+        String title = noteText.substring(0,noteText.indexOf("\n"));
+        noteText = noteText.substring(noteText.indexOf("\n")+1);
+
+        Note note = new Note(title, noteText, userId);
+        noteService.addNote(note);
+
+        return ResponseEntity.ok().build();
     }
 
 }

@@ -26,4 +26,7 @@ public interface NoteRepo extends JpaRepository<Note, Long> {
         List<Note> findAllByTitle(@Param("title") String title1);
 
         Page<Note> findAll(Pageable pageable);
+
+        Page<Note> findAllByUserId(Pageable pageable, Long id);
+
 }

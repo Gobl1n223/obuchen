@@ -53,5 +53,8 @@ public class NoteServiceImpl implements NoteService {
         return noteRepo.findAllByTitle(title);
     }
 
-
+    @Override
+    public Page<Note> getAllByUserId(Pageable pageable, Long id) {
+        return noteRepo.findAllByUserId(pageable, id);
+    }
 }
